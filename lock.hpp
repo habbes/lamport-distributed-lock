@@ -1,5 +1,5 @@
-#ifndef __lock_h__
-#define __lock_h__
+#ifndef __lock_hpp__
+#define __lock_hpp__
 
 class DistributedLock
 {

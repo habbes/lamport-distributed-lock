@@ -1,4 +1,4 @@
-#include "lock.h"
+#include "lock.hpp"
 
 DistributedLock::DistributedLock(const int & num_procs, const int & my_id):
     _num_procs(num_procs), _my_id(my_id) {

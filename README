@@ -6,3 +6,9 @@ Basic implementation of distributed mutex lock propsed by Lamport in https://lam
 
 - Install ZeroMQ: https://zeromq.org/download/
 - Run: `make`
+
+## Run test
+
+```
+./runtest.sh
+```

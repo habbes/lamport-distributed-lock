@@ -1,9 +1,13 @@
 #include <iostream>
+#include <cstdio>
+#include <algorithm>
 #include "zmq.hpp"
-#include "lock.h"
+#include "lock.hpp"
+#include "helpers.hpp"
 
 constexpr const int DEFAULT_LOOPS = 4;
 constexpr const int BASE_PORT = 7200;
+constexpr const char *FILENAME = "result.csv";
 
 int main(int argc, char *argv[])
 {
@@ -17,12 +21,16 @@ int main(int argc, char *argv[])
     const int node_port = node_id + BASE_PORT;
 
     DistributedLock lock(num_nodes, node_id);
+    FILE *file = fopen(FILENAME, "a+");
 
     for (int i = 0; i < num_loops; i++) {
         lock.acquire();
-        std::cout << "Node " << node_id << " working..." << std::endl;
+        int last_value = get_last_result_value(file);
+        write_result_line(file, last_value + 1, node_id);
+        fflush(file);
         lock.release();
     }
-    
+
+    fclose(file);
     return 0;
 }
